@@ -37,4 +37,9 @@ public class Commodity {
 	public void setRare(boolean isRare) {
 		this.isRare = isRare;
 	}
+	@Override
+	public String toString() {
+		return "Commodity [id=" + id + ", name=" + name + ", category=" + category + ", averagePrice=" + averagePrice
+				+ ", isRare=" + isRare + "]";
+	}
 }

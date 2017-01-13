@@ -11,6 +11,5 @@ public class System {
 	private boolean isPopulated;
 	private Government government;
 	private Faction allegiance;
-	private StateType state;
 	
 }

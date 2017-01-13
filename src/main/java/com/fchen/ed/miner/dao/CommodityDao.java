@@ -7,7 +7,7 @@ import java.util.Set;
 
 import com.fchen.ed.miner.model.Commodity;
 
-public class CommodityDao {
+public class CommodityDao extends GenericStaticTypeDaoImpl<Commodity> {
 
 	private static CommodityDao instance = null;
 	private HashSet<Commodity> commodities;
@@ -26,11 +26,7 @@ public class CommodityDao {
 		return instance;
 	}
 
-	public Set<Commodity> getAll() {
-		return commodities;
-	}
-
-	private void updateSearchMap() {
+	protected void updateSearchMap() {
 		commoditiesNameSearchMap.clear();
 
 		for (Commodity commodity : commodities) {
