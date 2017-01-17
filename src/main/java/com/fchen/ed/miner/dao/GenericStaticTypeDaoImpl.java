@@ -1,5 +1,6 @@
 package com.fchen.ed.miner.dao;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +26,11 @@ public abstract class GenericStaticTypeDaoImpl<T> implements GenericStaticTypeDa
 	public Set<T> getAll() {
 		return masterSet;
 	}
-	
+
+	public void addAll(T[] tArray) {
+		masterSet.addAll(Arrays.asList(tArray));
+	}
+
 	public void addAll(Set<T> tSet) {
 		masterSet.addAll(tSet);
 	}

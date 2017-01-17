@@ -1,21 +1,23 @@
 package com.fchen.ed.miner.dao;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.fchen.ed.miner.model.Commodity;
+import com.fchen.ed.miner.model.CommodityCategory;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 
 public class CommodityDao extends GenericStaticTypeDaoImpl<Commodity> {
 
 	private static CommodityDao instance = null;
-	private HashSet<Commodity> commodities;
-	private Map<String, Commodity> commoditiesNameSearchMap;
+	private Map<String, Commodity> nameSearchMap;
+	private Multimap<CommodityCategory, Commodity> categorySearchMap;
 
 	protected CommodityDao() {
-		commodities = new HashSet<Commodity>();
-		commoditiesNameSearchMap = new HashMap<String, Commodity>();
+		nameSearchMap = new HashMap<String, Commodity>();
+		categorySearchMap = ArrayListMultimap.create();
 	}
 
 	public static CommodityDao getInstance() {
@@ -27,24 +29,18 @@ public class CommodityDao extends GenericStaticTypeDaoImpl<Commodity> {
 	}
 
 	protected void updateSearchMap() {
-		commoditiesNameSearchMap.clear();
+		nameSearchMap.clear();
 
-		for (Commodity commodity : commodities) {
-			commoditiesNameSearchMap.put(commodity.getName(), commodity);
+		for (Commodity commodity : masterSet) {
+			nameSearchMap.put(commodity.getName(), commodity);
 		}
 	}
 
-	public void addAll(Set<Commodity> commodities) {
-		this.commodities.addAll(commodities);
-		updateSearchMap();
-	}
-
-	public void add(Commodity commodity) {
-		commodities.add(commodity);
-		updateSearchMap();
-	}
-
 	public Commodity getCommodityByName(String name) {
-		return commoditiesNameSearchMap.get(name);
+		return nameSearchMap.get(name);
+	}
+
+	public List<Commodity> getByCategory(CommodityCategory category) {
+		return (List<Commodity>) categorySearchMap.get(category);
 	}
 }
